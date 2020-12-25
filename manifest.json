@@ -10,7 +10,8 @@
         }
     ],
    "browser_action":{
-       "default_title":"Focus"
+       "default_title":"Focus",
+       "default_popup":"popup.html"
    },
 
     "background":{
