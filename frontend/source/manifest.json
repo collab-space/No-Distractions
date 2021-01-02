@@ -1,0 +1,42 @@
+{
+	"name": "Focus",
+	"version": "1.0.0",
+	"description": "No-distractions",
+	"manifest_version": 2,
+	"minimum_chrome_version": "74",
+	"icons": {
+		"128": "icon.png"
+	},
+	"permissions": [
+		"storage",
+		"tabs",
+		"webRequest",
+		"<all_urls>",
+		"webRequestBlocking"
+	],
+	"options_ui": {
+		"chrome_style": true,
+		"page": "configure.html"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"content.js"
+			]
+		}
+	],
+	"browser_action": {
+		"default_title": "Focus",
+		"default_popup": "popup.html"
+	},
+	"background": {
+		"persistent": true,
+		"scripts": [
+			"browser-polyfill.min.js",
+			"background.js"
+		]
+	}
+}
