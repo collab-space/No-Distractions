@@ -8,7 +8,29 @@
 </head>
 
 <body>
+
   <h1>Settings Page</h1>
+  <form id="urlForm">
+    <input type="text" id="urlForm_url" name="url" placeholder="www.facebook.com" />
+    <input type="number" id="urlForm_limit" name="limit" placeholder="10" /> minutes <br>
+    <input type="submit" />
+  </form>
+  <br>
+  <input id="getAll" type="button" value="Refresh" />
+
+  <script src="./configure.js"></script>
+
+  <table id="watchlist">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>Daily limit</th>
+        <th>Current usage</th>
+      </tr>
+    </thead>
+    <tbody id="watchlist_body"></tbody>
+  </table>
+
 </body>
 
 </html>
