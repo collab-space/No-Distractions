@@ -4,7 +4,10 @@ let watch_urls = ["*://*.facebook.com/*"]
 
 window.pages = {}
 
+
 var browser = browser || chrome;
+
+browser.storage.local.clear()
 
 function redirect(request) {
   console.log("url intercepted: " + request.url);
@@ -19,26 +22,36 @@ let watchListener = browser.webRequest.onBeforeRequest.addListener(
 
 
 // objectstorage
-// url
-// matchpattern
-// daily limit
-// current
-// created on
-// flags
+// // url (key)
+// // matchpattern
+// // daily limit
+// // current
+// // created on
+// // flags
 
 function addStoreEntry(url, trackobject) {
-  browser.storage.local
-    .set({ url, trackobject })
-    .then(() => console.log(`adding url ${url}`))
-    .catch((err) => console.log(`unable to add url ${url}, err : ${err}`))
+  var storingurl = browser.storage.local.set({ [url]: trackobject }, () => {
+    if (browser.runtime.lastError) {
+      console.error(`unable to register url ${url} in tracklist`)
+    } else {
+      console.log(`adding url ${url}`)
+      browser.webRequest.onBeforeRequest.removeListener(watchListener)
+      watch_urls.push(trackobject["matchpattern"])
+      console.log(watch_urls)
+      watchListener = browser.webRequest.onBeforeRequest.addListener(
+        redirect,
+        { urls: watch_urls },
+        ["blocking"]
+      );
+    }
+  })
 }
 
 function deleteStoreEntry(url) {
-  browser.storage.local
-    .remove(url)
-    .then(() => console.log(`removed url:${url}`))
-    .catch((err) => console.err(`unable to delete url ${url}, err: ${err}`))
-
+  let store = browser.storage.local.remove(url)
+  store.then(
+    () => console.log(`removed url:${url}`),
+    (err) => console.err(`unable to delete url ${url}, err: ${err}`))
 }
 
 function handleMessage(request, sender, sendResponse) {
@@ -46,10 +59,26 @@ function handleMessage(request, sender, sendResponse) {
   switch (request.action) {
     case 'addrecord':
       console.log(`will add record to database, url: ${request.url}, limit: ${request.limit}`)
+      addStoreEntry(request.matchpattern, {
+        matchpattern: request.matchpattern,
+        url: request.url,
+        dailylimit: request.dailylimit,
+        current: request.current || "0"
+      })
+
+      return true;
       break
     case 'getallrecords':
       console.log("will get all records")
-      break
+      browser.storage.local.get(null, (data) => {
+        if (browser.runtime.lastError) {
+          console.error(`unable to retrieve tracklist`)
+        } else {
+          console.log(data)
+          sendResponse({ response: data })
+        }
+      })
+      return true;
     default:
       console.log("unhandled request action")
   }
