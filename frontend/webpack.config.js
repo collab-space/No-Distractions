@@ -9,7 +9,8 @@ module.exports = {
 	entry: {
 		background: './source/background',
 		popup: './source/popup',
-		content: './source/content'
+		content: './source/content',
+		configure: './source/configure'
 	},
 	output: {
 		path: path.join(__dirname, 'distribution'),
