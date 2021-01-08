@@ -1,0 +1,19 @@
+div.container {
+  width: 400px;
+  padding: 5px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.btn-custom {
+  margin: 5px;
+  padding: 5px;
+}
+
+.intro h1 {
+  text-align: center;
+}

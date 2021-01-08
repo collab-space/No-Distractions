@@ -1,0 +1,9 @@
+.btn,
+.btn:enabled:hover {
+  background-image: none;
+  box-shadow: none;
+}
+
+.btn:enabled:hover {
+  color: white;
+}

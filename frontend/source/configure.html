@@ -5,32 +5,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Settings</title>
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/configure.css">
 </head>
 
 <body>
 
-  <h1>Settings Page</h1>
+
+  
+  <div class="container">
+
+    <div class="py-5 text-center">
+     
+      <h2>Focus: Configuration page</h2>
+      <p class="lead">Increase your productivity by adding your distractions here</p>
+    </div>
   <form id="urlForm">
-    <input type="text" id="urlForm_url" name="url" placeholder="www.facebook.com" />
-    <input type="number" id="urlForm_limit" name="limit" placeholder="10" /> minutes <br>
-    <input type="submit" />
+    
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="website">Website name</label>
+        <input type="text" class="form-control" id="urlForm_url" placeholder=" example: facebook.com" aria-describedby="basic-addon3" required>
+        <div class="invalid-feedback">
+          Enter website url
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="time">Duration</label>
+        <div class="input-group">
+       
+        <input type="number" class="form-control" id="urlForm_limit" name="limit" placeholder="Ex: 10" required/> 
+        <div class="input-group-append">
+          <button type="button" class="btn btn-outline-dark">Mins</button>
+
+          <button type="button" class="btn btn-outline-dark">Hours</button>
+        </div>
+        <div class="invalid-feedback">
+          Valid last name is required.
+        </div>
+        </div>
+      </div>
+      <div class="col-md-2 m-auto justify-content-center" >
+  
+   <button type="submit"  class="btn btn-success mt-3">Add </button>
+   <!-- Needs a input container
+   <i class="fas fa-plus-circle"></i> -->
+      </div>
+      </div>
+      <div class="row mt-5">
+<h3> Blocked websites</h3> <span class="mt-auto mb-auto ml-2"><a href="#" id="getAll"><i class="fas fa-sync-alt"></i></a></span>
+
+        <table class="table"  id="watchlist">
+          <thead>
+            <tr>
+              <th scope="col">Website</th>
+              <th scope="col">Daily Limit</th>
+              <th scope="col">Current Usage</th>
+              <th scope="col">Actions</th>
+            
+            </tr>
+          </thead>
+          <tbody id="watchlist_body">
+            <tr>
+              <th scope="row">facebook.com</th>
+              <td>60mins</td>
+              <td>23mins</td>
+              <td><a href="#" class="btn btn-outline-danger ml-2 mr-2"><i class="fas fa-minus-circle"></i> Remove</a><a href="#" class="btn btn-outline-primary"><i class="fas fa-hourglass-half"></i> Extend</a></td>
+              
+            </tr>
+            <tr>
+              <th scope="row">reddit.com</th>
+              <td>120mins</td>
+              <td>110mins</td>
+              <td><a href="#" class="btn btn-outline-danger ml-2 mr-2"><i class="fas fa-minus-circle"></i> Remove</a><a href="#" class="btn btn-outline-primary"><i class="fas fa-hourglass-half"></i> Extend</a></td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
   </form>
-  <br>
-  <input id="getAll" type="button" value="Refresh" />
-
+</div>
   <script src="./configure.js"></script>
-
-  <table id="watchlist">
-    <thead>
-      <tr>
-        <th>URL</th>
-        <th>Daily limit</th>
-        <th>Current usage</th>
-      </tr>
-    </thead>
-    <tbody id="watchlist_body"></tbody>
-  </table>
-
 </body>
 
 </html>
